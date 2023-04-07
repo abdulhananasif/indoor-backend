@@ -22,4 +22,18 @@ userRouter
     }
   });
 
+userRouter
+  .route('/login')
+  .all((req, res, next) => {
+    res.status(200).setHeader('Content-Type', 'application/json');
+    next();
+  })
+  .post((req, res, next) => {
+    try {
+      login(req.body, res);
+    } catch (err) {
+      res.status(500).send({message: 'Internal Server Error!'});
+    }
+  });
+
 module.exports = userRouter;
